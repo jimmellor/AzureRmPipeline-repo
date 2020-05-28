@@ -15,5 +15,17 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'vdi-wppit-hcs-prod(23b7dac6-cdf3-4feb-814f-1a76c48fe1c5)'
+    subscriptionId: '23b7dac6-cdf3-4feb-814f-1a76c48fe1c5'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'prd-wppcs-inf-core'
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'CreateWebApp/azuredeploy.json'
+    csmParametersFile: '-projectName TestProject -linkedTemplateUri https://raw.githubusercontent.com/jimmellor/AzureRmPipeline-repo./master/CreateWebApp/linkedStorageAccount.json?token=AABRDGGG3KNCTLOCSNN5ROC6Z7X7Y'
+    deploymentMode: 'Incremental'
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
